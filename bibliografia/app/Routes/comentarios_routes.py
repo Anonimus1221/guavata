@@ -23,6 +23,8 @@ def enviar_comentario():
             db.session.rollback() # Si algo sale mal revierte la transaccion
             flash('Error al enviar el comentario.Intenta de nuevo', 'danger')
             print(e)
-            return redirect(url_for('comentario.enviar_comentario')) #Redirige de nuevo al mismo formulario
+        return redirect(url_for('comentario.enviar_comentario')) #Redirige de nuevo al mismo formulario
+    
+    comentarios = Comentario.query.all()
     #Si el metodo es get, simplemente muestra el formulario
-    return render_template('comentarios/index.html')
+    return render_template('comentarios/index.html', comentarios=comentarios)
