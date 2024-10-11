@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mapa General de Guavatá</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header, footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header-title {
+            animation: slideIn 1s ease-out;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .header-title p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .back-button a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .back-button a:hover {
+            color: #0056b3;
+        }
+
+        .back-button img {
+            height: 50px; /* Tamaño más grande */
+            width: 50px; /* Tamaño más grande */
+            transition: transform 0.3s;
+        }
+
+        .back-button img:hover {
+            transform: scale(1.2);
+        }
+
+        .info-adicional {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: slideIn 1.5s ease-out;
+        }
+
+        .info-adicional h2 {
+            color: #007bff;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            animation: bounceIn 2s ease-in-out;
+        }
+
+        .info-adicional p {
+            margin: 10px 0;
+            line-height: 1.8;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .info-adicional ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            font-size: 1rem;
+        }
+
+        .info-adicional li {
+            margin-bottom: 5px;
+        }
+
+        .map-container {
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .map-container iframe {
+            border: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 300px;
+            height: 300px;
+            max-width: 100%;
+            transition: transform 0.3s;
+        }
+
+        .map-container iframe:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 20px;
+            animation: fadeIn 3s ease-in;
+        }
+
+        .guavata-logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .header-title p {
+                font-size: 0.9rem;
+            }
+
+            .info-adicional h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-adicional p, .info-adicional ul {
+                font-size: 0.9rem;
+            }
+
+            .back-button a {
+                font-size: 1rem;
+            }
+
+            .map-container iframe {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .info-adicional {
+                padding: 10px;
+                margin: 10px;
+            }
+
+            .map-container iframe {
+                width: 200px;
+                height: 200px;
+            }
+
+            .back-button a {
+                font-size: 0.8rem;
+            }
+
+            .back-button img {
+                height: 50px; /* Tamaño más pequeño en pantallas pequeñas */
+                width: 200px; /* Tamaño más pequeño en pantallas pequeñas */
+                align-items: center;
+            }
+
+            .guavata-logo {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1>Guavatá</h1>
+            <p> Naturaleza, Cultura y Progreso</p>
+        </div>
+    </header>
+    
+    <div class="back-button">
+        <a href="{{ url_for('categorias.guavata') }}"><img src="{{ url_for('static', filename='inicio.png') }}" alt="Volver al Inicio" style="width: 60px; height: 50px;"></a>
+    </div>
+
+    <section class="info-adicional">
+        <h2>Mapa General de Guavatá</h2>
+        <p>
+            Guavatá es un hermoso municipio en el departamento de Santander, Colombia. Este mapa general proporciona una visión clara de los principales lugares de interés en la región.
+        </p>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13180.93127974128!2d-73.1265573988731!3d6.161786838459647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6c1ad5c7e44d69%3A0x228032e7e40d870a!2sGuavat%C3%A1%2C%20Santander!5e0!3m2!1ses!2sco!4v1697052410243!5m2!1ses!2sco&maptype=roadmap" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <p><strong>Ubicación de los sitios importantes:</strong></p>
+        <ul>
+            <li><strong>Parque Principal:</strong> Ubicado en el centro del municipio, es un lugar ideal para relajarse y disfrutar de actividades al aire libre.</li>
+            <li><strong>Iglesia Central:</strong> Un punto emblemático de la historia y la arquitectura de Guavatá, situado cerca del parque.</li>
+            <li><strong>Cascadas de Guavatá:</strong> Un atractivo natural destacado, ideal para los amantes de la naturaleza y el senderismo.</li>
+            <li><strong>Museo de Historia Local:</strong> Ofrece una visión detallada de la rica historia del municipio y su desarrollo.</li>
+        </ul>
+        <p><strong>Datos Importantes:</strong></p>
+        <p><strong>Fundación:</strong> 15 de agosto de 1795</p>
+        <p><strong>Población:</strong> Aproximadamente 7,500 habitantes</p>
+        <p><strong>Gentilicio:</strong> Guavateños</p>
+        <p><strong>Economía:</strong> Basada en la agricultura, especialmente la producción de café y caña de azúcar.</p>
+    </section>
+
+    <footer>
+        <p>&copy; Bienvenidos a Guavatá | Todos los derechos reservados.</p>
+    </footer>
+
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo de Guavatá" class="guavata-logo">
+</body>
+</html>

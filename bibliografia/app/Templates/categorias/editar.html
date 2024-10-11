@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Categorias</title>
+</head>
+<body>
+    <div class="titulo">
+        <h1>Editar Categorias</h1>
+    </div>
+    <div class="formulario">
+        <form action="{{url_for ('categorias.editar', id=categoria.id)}}" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ categoria.nombre }}" required>
+
+            <label for="descripcion">Descripcion:</label>
+            <input type="text" id="descripcion" name="descripcion" value="{{ categoria.descripcion }}" required>
+
+            <div class="botones">
+                <button type="submit">Editar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

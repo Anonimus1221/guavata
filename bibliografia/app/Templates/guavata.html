@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bienvenidos a Guavatá</title>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo de Guavatá" class="logo">
+            <div class="header-title">
+                <h1>Guavatá</h1>|
+                <p> Naturaleza, Cultura y Progreso</p>
+            </div>
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo de Guavatá" class="logo">
+        </div>
+    </header>
+    <nav>
+        <ul>
+        
+            <li>
+                <a href="{{ url_for('categorias.sitiosturisticos') }}">Sitios Turísticos</a>
+            </li>
+            <li>
+                <a href="{{ url_for('categorias.mapageneral') }}">Mapa general</a> 
+            </li>
+            <li>
+                <a href="{{ url_for('categorias.deportes') }}">Deportes</a>
+            </li>
+            <li>
+                <a href="{{ url_for('categorias.historia') }}">Historia</a>
+            </li>
+            <li> 
+               <a href="{{ url_for('categorias.eventos') }}">eventos</a>
+            </li>
+            <li>
+                <a href="{{ url_for('comentario.enviar_comentario') }}">Comentarios</a>
+            </li>
+
+        </ul>
+    </nav>
+    <section>
+        <h2>Acerca de Guavatá</h2>
+        <p class="info-guavata">
+            Guavatá es un municipio colombiano ubicado en el departamento de Santander. Conocido por su belleza natural y su rica historia, 
+            este encantador pueblo fue fundado el 15 de agosto de 1795. Su economía se basa principalmente en la agricultura, destacándose 
+            en la producción de guayaba y el maiz. 
+        </p>
+    </section>
+    <section class="datos-municipales">
+        <h3>Datos Municipales</h3>
+        <p><strong>Fundación:</strong> 15 de agosto de 1795</p>
+        <p><strong>Población:</strong> 7,500 habitantes (aproximadamente)</p>
+        <p><strong>Gentilicio:</strong> Guavateños</p>
+        <p><strong>Alcalde Actual:</strong> Jose Juaquin Cubides</p>
+    </section>
+    <section class="festividades">
+        <h3>Festividades Populares</h3>
+        <ul>
+            <li>Fiesta de San Roque - Agosto</li>
+            <li>Festival del Café - Noviembre</li>
+            <li>Semana Santa - Marzo/Abril</li>
+        </ul>
+    </section>
+    <section class="eventos">
+        <h2>Próximos Eventos</h2>
+        <div class="calendario">
+            <div class="mes">
+                <h3>Agosto</h3>
+                <p><strong>Fiesta de San Roque:</strong> 14-16 de agosto</p>
+            </div>
+            <div class="mes">
+                <h3>Septiembre</h3>
+                <p>No hay eventos programados</p>
+            </div>
+            <div class="mes">
+                <h3>Noviembre</h3>
+                <p><strong>Festival del Café:</strong> 10-12 de noviembre</p>
+            </div>
+            <div class="mes">
+                <h3>Marzo/Abril</h3>
+                <p><strong>Semana Santa:</strong> 24-31 de marzo</p>
+            </div>
+        </div>
+    </section>
+    <section class="info-adicional">
+        <h2>Más sobre Guavatá</h2>
+        <p>
+            Guavatá se encuentra ubicado en la región montañosa de Santander, lo que le otorga un clima fresco y agradable durante todo el año. 
+            Su economía, además de la producción de café y caña de azúcar, incluye la ganadería y la producción de frutas como la guayaba y 
+            el plátano. Su geografía montañosa ofrece paisajes espectaculares y es ideal para actividades al aire libre como el senderismo y 
+            el ciclismo.
+        </p>
+        <p>
+            El municipio también es famoso por sus costumbres y tradiciones culturales. A lo largo del año, se celebran diversas festividades 
+            que resaltan el folclore local. La gastronomía de Guavatá se caracteriza por platos tradicionales como el mute santandereano, 
+            las arepas de maíz pelado y los tamales. Los mercados locales son lugares donde los visitantes pueden disfrutar de productos frescos 
+            y artesanales.
+        </p>
+        <p>
+            Guavatá es un destino turístico emergente gracias a sus sitios naturales como las cascadas y miradores, así como su arquitectura colonial 
+            que puede apreciarse en la Iglesia Central y en las antiguas casas del casco urbano. Además, el municipio promueve un turismo sostenible 
+            para preservar sus recursos naturales y la biodiversidad que lo rodea.
+        </p>
+    </section>
+    <section class="video-promocional">
+        <h2>Conoce Guavatá en Video</h2>
+        <div class="video-container">
+            <video controls>
+                <source src="video-guavata.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+            </video>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; Bienvenidos a Guavatá | Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script JS -->
+    <script>
+        function editar(){
+           
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        header, footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-top .logo {
+            height: 80px;
+            margin: 0 20px;
+        }
+        
+        .header-title h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        
+        header p {
+            margin: 5px 0 0 0;
+        }
+        nav {
+            background-color: #0056b3;
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            position: relative;
+            margin-right: 15px;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: #003d7a;
+        }
+        
+        nav ul li ul.dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            z-index: 1000;
+        }
+        
+        nav ul li:hover ul.dropdown {
+            display: block;
+        }
+        
+        nav ul li ul.dropdown li {
+            margin: 0;
+        }
+        
+        nav ul li ul.dropdown li a {
+            color: #333;
+            padding: 10px;
+            width: 180px;
+            display: block;
+        }
+        
+        nav ul li ul.dropdown li a:hover {
+            background-color: #f0f0f0;
+        }
+        section {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        
+        .info-guavata {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        /* Sección de datos municipales */
+        .datos-municipales, .festividades, .info-adicional, .eventos {
+            margin-top: 20px;
+        }
+        
+        .datos-municipales, .festividades {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .datos-municipales h3, .festividades h3 {
+            margin-top: 0;
+        }
+        
+        .datos-municipales p, .festividades p {
+            margin: 5px 0;
+        }
+        
+        .festividades ul {
+            list-style-type: square;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        
+        .festividades ul li {
+            margin-bottom: 5px;
+        }
+        .eventos .calendario {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        .eventos .calendario .mes {
+            background-color: #e9f7fe;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            flex: 1 1 200px;
+            box-sizing: border-box;
+        }
+        
+        .eventos .calendario .mes h3 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+        
+        .eventos .calendario .mes p {
+            margin: 10px 0 0 0;
+        }
+        
+        /* Sección del video promocional */
+        .video-promocional {
+            margin-top: 40px;
+        }
+        
+        .video-promocional h2 {
+            text-align: center;
+        }
+        
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .video-container video {
+            width: 80%;
+            max-width: 800px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        
+        
+        footer {
+            font-size: 0.9rem;
+            background-color: #0056b3;
+        }
+        
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .header-top .logo {
+                margin: 10px 0;
+            }
+        
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            nav ul li {
+                margin: 5px 0;
+            }
+        
+            .eventos .calendario {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .eventos .calendario .mes {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }        
+    </style>
+</body>
+</html>

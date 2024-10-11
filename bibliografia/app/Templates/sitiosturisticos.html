@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitios Turísticos de Guavatá, Santander</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF; /* Color azul */
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Arial Black', sans-serif;
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        section {
+            margin-bottom: 40px;
+            border-bottom: 2px solid #007BFF; /* Color azul */
+            padding-bottom: 20px;
+            text-align: center; /* Centrar contenido en la sección */
+        }
+        section img {
+            max-width: 80%; /* Tamaño ajustado */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        section img:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            font-family: 'Arial Black', sans-serif;
+            color: #007BFF; /* Color azul */
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+        .site-description {
+            margin-top: 10px;
+        }
+        footer {
+            background-color: #007BFF; /* Color azul */
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer p {
+            margin: 0;
+        }
+        .volver {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #007BFF; /* Color azul */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .volver:hover {
+            background-color: #0056b3; /* Color azul más oscuro */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sitios Turísticos de Guavatá</h1>
+    </header>
+
+    <main>
+        <!-- Mirador de Guavatá -->
+        <section>
+            <div>
+                <div class="back-button">
+                    <a href="{{ url_for('categorias.guavata') }}"><img src="{{ url_for('static', filename='inicio.png') }}" alt="Volver al Inicio" style="width: 60px; height: 50px;"></a>
+            </div>
+            <h2>Mirador de Guavatá</h2>
+            <img src="https://via.placeholder.com/600x400" alt="Mirador de Guavatá">
+            <p class="site-description">
+                El Mirador de Guavatá ofrece impresionantes vistas del valle y los alrededores, convirtiéndose en un lugar ideal para disfrutar de la naturaleza y capturar fotografías memorables.
+            </p>
+        </section>
+
+        <!-- Los Bancos -->
+        <section>
+            <h2>Los Bancos</h2>
+            <img src="https://via.placeholder.com/600x400" alt="Los Bancos">
+            <p class="site-description">
+                Los Bancos son un espacio de esparcimiento y encuentro, rodeados de áreas verdes donde las familias y amigos pueden disfrutar de actividades al aire libre y momentos de relajación.
+            </p>
+        </section>
+
+        <!-- Las Quebradas -->
+        <section>
+            <h2>balneario ardilas</h2>
+            <img src="{{ url_for('static', filename='balneario.jpg') }}" alt="Las Quebradas">
+            <p class="site-description">
+                Un espacio para divertirse, disfrutar en familia o amigos. Respirar aire puro y descansar con el agradable sonido de la naturaleza.
+
+               Contamos con una refrescante piscina natural, con servicio de bolirana. Espacios para asados y fogatas🔥, zona de camping🏕, tejo y minitejo
+.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Municipio de Guavatá, Santander. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

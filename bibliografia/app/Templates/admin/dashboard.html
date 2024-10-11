@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <script src="https://kit.fontawesome.com/f98b44af14.js" crossorigin="anonymous"></script>
+    <title>Primera Vista</title>
+</head>
+<body> 
+    <div class="admin-info">
+        <div>
+            <h1>BIENVENIDO A TU APARTADO DE ADMINISTRACION</h1>
+        </div>
+    </div>
+    <div>
+        <ul>
+            <li>
+                <a href="{{ url_for('categoria.index.html') }}" class="edit-page-link">
+                    <i class="fas fa-edit"></i> Editar Página
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
