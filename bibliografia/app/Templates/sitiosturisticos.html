@@ -100,25 +100,17 @@
 
     <main>
         <!-- Mirador de Guavatá -->
-        <section>
-            <div>
-                <div class="back-button">
-                    <a href="{{ url_for('categorias.guavata') }}"><img src="{{ url_for('static', filename='inicio.png') }}" alt="Volver al Inicio" style="width: 60px; height: 50px;"></a>
-            </div>
-            <h2>Mirador de Guavatá</h2>
-            <img src="https://via.placeholder.com/600x400" alt="Mirador de Guavatá">
-            <p class="site-description">
-                El Mirador de Guavatá ofrece impresionantes vistas del valle y los alrededores, convirtiéndose en un lugar ideal para disfrutar de la naturaleza y capturar fotografías memorables.
-            </p>
-        </section>
+       
 
         <!-- Los Bancos -->
         <section>
+            
+             
+                    <a href="{{ url_for('categorias.guavata') }}"><img src="{{ url_for('static', filename='home.png') }}" alt="Volver al Inicio" style="width: 30px; height: 30px;"></a>
+
+                
             <h2>Los Bancos</h2>
-            <img src="https://via.placeholder.com/600x400" alt="Los Bancos">
-            <p class="site-description">
-                Los Bancos son un espacio de esparcimiento y encuentro, rodeados de áreas verdes donde las familias y amigos pueden disfrutar de actividades al aire libre y momentos de relajación.
-            </p>
+            <img src="{{ url_for('static', filename='cascada.jpg') }}" alt="Los Bancos">
         </section>
 
         <!-- Las Quebradas -->
@@ -134,9 +126,6 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2023 Municipio de Guavatá, Santander. Todos los derechos reservados.</p>
-    </footer>
 
 </body>
 </html>

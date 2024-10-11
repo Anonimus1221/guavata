@@ -4,98 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comentarios</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style3.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
         body {
-            font-family: 'Nerko One', sans-serif;
-            background-color: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.9rem;
         }
-        header h2 {
-            text-align: center;
-            margin-bottom: 20px;
+        .navbar {
+            background-color: #3b5998;
+            box-shadow: 0 1px 2px rgba(0,0,0,.1);
         }
-        .comentario-form {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.2rem;
         }
-        .comentario-form h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            resize: none; /* Evitar que el textarea sea redimensionable */
-        }
-        button {
-            display: block;
-            width: 100%;
-            background-color: #007bff;
-            color: white;
+        .card {
             border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+            margin-bottom: 1.5rem;
         }
-        button:hover {
-            background-color: #0056b3;
+        .card-header {
+            background-color: #3b5998;
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            padding: 0.75rem;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+        .btn-primary {
+            background-color: #3b5998;
+            border-color: #3b5998;
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #2d4373;
+            border-color: #2d4373;
+        }
+        .comentario {
+            background-color: #fff;
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .form-control:focus {
+            border-color: #3b5998;
+            box-shadow: 0 0 0 0.1rem rgba(59, 89, 152, 0.25);
+        }
+        h2 {
+            font-size: 1.2rem;
+        }
+        h3 {
+            font-size: 1.1rem;
         }
     </style>
 </head>
-<body>
-    <header>
-        <h2>Comentariod</h2>
-    </header>
-    <div class="container">
-        <div class="comentario-form">
-            <h2>Enviar Comentario</h2>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %} 
-                    <ul>            
-                        {% for category, message in messages %}
-                            <div class="flash {{ category }}">{{ message }}</div>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-comments me-2"></i>Comentarios
+                <a href="{{ url_for('categorias.guavata') }}"><img src="{{ url_for('static', filename='home.png') }}" alt="Volver al Inicio" style="width: 30px; height: 30px;"></a>
+
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h2 class="mb-0"><i class="fas fa-pen me-2"></i>Enviar Comentario</h2>
+                    </div>
+                    <div class="card-body">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %} 
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} alert-dismissible fade show py-2" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <form action="{{ url_for('comentario.enviar_comentario') }}" method="POST">
+                            <div class="mb-2">
+                                <textarea class="form-control" name="descripcion" rows="3" placeholder="Escribe tu comentario aquí..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-1"></i>Enviar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Comentarios recientes</h3>
+                    </div>
+                    <div class="card-body">
+                        {% for comentario in comentarios %}
+                            <div class="comentario">
+                                <p class="mb-0">{{ comentario.descripcion }}</p>
+                            </div>
+                        {% else %}
+                            <p class="text-muted text-center">No hay comentarios aún.</p>
                         {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-            <form action="{{ url_for('comentario.enviar_comentario') }}" method="POST">
-                <textarea name="descripcion" placeholder="Deja aquí tu comentario" required></textarea>
-                <button type="submit">Enviar Comentario</button>
-            </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-        <h3>Comentarios recientes</h3>
-        {% for comentario in comentarios%}
-            <div class="comentario">
-                <p>{{ comentario.descripcion}}</p>
-            </div>
-        {% else %}
-            <p>No hay comentarios aun.</p>
-        {% endfor %}
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("nav-menu");
-            menu.classList.toggle("show");
-        }
-    </script>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
