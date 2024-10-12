@@ -1,5 +1,5 @@
 from app.Models.usuario import Usuario
-from flask import Message
+from flask_mail import Message
 from app import db
 from app import app
 from itsdangerous import URLSafeTimedSerializer
