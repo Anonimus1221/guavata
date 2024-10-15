@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <style>
+        /* ... estilos anteriores ... */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recuperar Contraseña</h1>
+        <form id="recuperarForm">
+            <div id="emailStep">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <button type="button" id="enviarEmail">Enviar código de verificación</button>
+            </div>
+            
+            <div id="codigoStep" class="hidden">
+                <label for="codigo">Código de verificación:</label>
+                <input type="text" id="codigo" name="codigo" required>
+                
+                <label for="nuevaContrasena">Nueva contraseña:</label>
+                <input type="password" id="nuevaContrasena" name="nuevaContrasena" required>
+                
+                <button type="submit">Cambiar contraseña</button>
+            </div>
+        </form>
+        
+        <div id="mensaje"></div>
+    </div>
+
+    <script>
+        const emailStep = document.getElementById('emailStep');
+        const codigoStep = document.getElementById('codigoStep');
+        const enviarEmailBtn = document.getElementById('enviarEmail');
+        const recuperarForm = document.getElementById('recuperarForm');
+        const mensajeDiv = document.getElementById('mensaje');
+
+        enviarEmailBtn.addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            
+            // Simular envío de código de verificación
+            fetch('/ruta/a/tu/api/enviar-codigo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    mensajeDiv.textContent = `Se ha enviado un código de verificación a ${email}. Por favor, revisa tu correo.`;
+                    mensajeDiv.className = 'mensaje-exito';
+                    emailStep.classList.add('hidden');
+                    codigoStep.classList.remove('hidden');
+                } else {
+                    mensajeDiv.textContent = 'Hubo un error al enviar el código. Por favor, intenta de nuevo.';
+                    mensajeDiv.className = 'mensaje-error';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mensajeDiv.textContent = 'Hubo un error al enviar el código. Por favor, intenta de nuevo.';
+                mensajeDiv.className = 'mensaje-error';
+            });
+        });
+
+        recuperarForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const codigo = document.getElementById('codigo').value;
+            const nuevaContrasena = document.getElementById('nuevaContrasena').value;
+            
+            fetch('/ruta/a/tu/api/cambiar-contrasena', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, codigo: codigo, nuevaContrasena: nuevaContrasena })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    mensajeDiv.textContent = 'Tu contraseña ha sido cambiada exitosamente.';
+                    mensajeDiv.className = 'mensaje-exito';
+                } else {
+                    mensajeDiv.textContent = 'Hubo un error al cambiar la contraseña. Por favor, verifica el código e intenta de nuevo.';
+                    mensajeDiv.className = 'mensaje-error';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mensajeDiv.textContent = 'Hubo un error al procesar tu solicitud. Por favor, intenta de nuevo.';
+                mensajeDiv.className = 'mensaje-error';
+            });
+        });
+    </script>
+</body>
+</html>
