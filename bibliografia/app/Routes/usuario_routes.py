@@ -25,6 +25,8 @@ def recuperar():
             flash('El correo no está registrado en nuestro sistema.', 'warning')
         
         return redirect(url_for('usuario.login'))
+    
+    return render_template('Usuarios/recuperar_contraseña.html')
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
