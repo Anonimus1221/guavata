@@ -100,3 +100,9 @@ def guavata():
 def eventos():
     return render_template("eventos.html")
 
+@bp.route("/recuperar")
+def recuperar():
+        return render_template('recuperar.html')  
+
+       
+    

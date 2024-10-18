@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Guavata</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        [contenteditable="true"]:hover {
+            outline: 2px dashed #4299e1;
+        }
+        [contenteditable="true"]:focus {
+            outline: 2px solid #4299e1;
+        }
+        .editable-image:hover::after {
+            content: "Haga clic para cambiar la imagen";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">Editor de Guavata</h1>
+        
+        <div id="guavata-content" class="bg-white p-8 rounded-lg shadow-lg">
+            <h2 id="titulo" class="text-4xl font-bold mb-4 text-center" contenteditable="true">Guavata</h2>
+            
+            <div class="relative mb-6">
+                <img id="imagen-principal" src="/static/images/guavata.jpg" alt="Guavata" class="w-full h-64 object-cover rounded-lg editable-image">
+            </div>
+            
+            <p id="descripcion" class="mb-6 text-lg" contenteditable="true">
+                Guavata es un hermoso municipio ubicado en el departamento de Santander, Colombia. Conocido por su rica historia y belleza natural.
+            </p>
+            
+            <div id="secciones">
+                <!-- Las secciones se agregarán aquí dinámicamente -->
+            </div>
+            
+            <button id="agregar-seccion" class="mt-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                Agregar Nueva Sección
+            </button>
+        </div>
+        
+        <div class="mt-6 text-center">
+            <button id="guardar-cambios" class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300">
+                Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let seccionCounter = 0;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarContenido();
+            document.getElementById('agregar-seccion').addEventListener('click', agregarSeccion);
+            document.getElementById('guardar-cambios').addEventListener('click', guardarCambios);
+            document.getElementById('imagen-principal').addEventListener('click', cambiarImagen);
+        });
+
+        function cargarContenido() {
+            fetch('/api/cargar-guavata-contenido')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('titulo').textContent = data.titulo || 'Guavata';
+                    document.getElementById('descripcion').textContent = data.descripcion || '';
+                    document.getElementById('imagen-principal').src = data.imagen || '/static/images/guavata.jpg';
+                    
+                    const seccionesContainer = document.getElementById('secciones');
+                    seccionesContainer.innerHTML = ''; // Limpiar secciones existentes
+                    
+                    if (data.secciones && data.secciones.length > 0) {
+                        data.secciones.forEach(seccion => agregarSeccion(seccion));
+                    }
+                })
+                .catch(error => console.error('Error al cargar el contenido:', error));
+        }
+
+        function agregarSeccion(seccion = null) {
+            const seccionDiv = document.createElement('div');
+            seccionDiv.className = 'mb-6';
+            seccionDiv.innerHTML = `
+                <h3 class="text-2xl font-semibold mb-2" contenteditable="true">${seccion ? seccion.titulo : 'Nueva Sección'}</h3>
+                <p contenteditable="true">${seccion ? seccion.contenido : 'Contenido de la nueva sección...'}</p>
+                <button class="mt-2 px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600" onclick="this.parentElement.remove()">Eliminar Sección</button>
+            `;
+            document.getElementById('secciones').appendChild(seccionDiv);
+            seccionCounter++;
+        }
+
+        function cambiarImagen() {
+            const nuevaURL = prompt("Ingrese la URL de la nueva imagen:");
+            if (nuevaURL) {
+                document.getElementById('imagen-principal').src = nuevaURL;
+            }
+        }
+
+        function guardarCambios() {
+            const data = {
+                titulo: document.getElementById('titulo').textContent,
+                descripcion: document.getElementById('descripcion').textContent,
+                imagen: document.getElementById('imagen-principal').src,
+                secciones: Array.from(document.getElementById('secciones').children).map(seccion => ({
+                    titulo: seccion.querySelector('h3').textContent,
+                    contenido: seccion.querySelector('p').textContent
+                }))
+            };
+
+            fetch('/api/guardar-guavata-contenido', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Cambios guardados con éxito');
+                } else {
+                    alert('Error al guardar los cambios');
+                }
+            })
+            .catch(error => console.error('Error al guardar los cambios:', error));
+        }
+    </script>
+</body>
+</html>

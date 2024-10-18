@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .form-input {
+            transition: all 0.3s ease-in-out;
+        }
+        .form-input:focus {
+            transform: scale(1.05);
+        }
+        .profile-pic {
+            transition: all 0.3s ease-in-out;
+        }
+        .profile-pic:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md animate__animated animate__fadeIn">
+        <h2 class="text-3xl font-bold mb-6 text-center text-indigo-600">Editar Perfil</h2>
+        
+        <form action="/actualizar-perfil" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <div class="text-center mb-6">
+                <img id="preview" src="{{ user.profile_pic or '/static/default-avatar.png' }}" alt="" class="w-32 h-32 rounded-full mx-auto mb-4 profile-pic">
+                <label for="profile_pic" class="cursor-pointer bg-indigo-500 text-white py-2 px-4 rounded-full hover:bg-indigo-600 transition duration-300">
+                    Cambiar foto
+                </label>
+                <input type="file" id="profile_pic" name="profile_pic" accept="image/*" class="hidden" onchange="previewImage(event)">
+            </div>
+
+            <div>
+                <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" value="" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            </div>
+
+            <div>
+                <label for="bio" class="block text-sm font-medium text-gray-700">Biografía</label>
+                <textarea id="bio" name="bio" rows="3" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+            </div>
+
+            <div>
+                <button type="submit" class="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 transform hover:scale-105">
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const preview = document.getElementById('preview');
+                preview.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Animación de entrada para los campos del formulario
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const formInputs = document.querySelectorAll('.form-input');
+            formInputs.forEach((input, index) => {
+                input.classList.add('animate__animated', 'animate__fadeInUp');
+                input.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
