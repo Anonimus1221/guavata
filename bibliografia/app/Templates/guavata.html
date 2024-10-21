@@ -67,27 +67,7 @@
             <li>Semana Santa - Marzo/Abril</li>
         </ul>
     </section>
-    <section class="eventos">
-        <h2>Próximos Eventos</h2>
-        <div class="calendario">
-            <div class="mes">
-                <h3>Agosto</h3>
-                <p><strong>Fiesta de San Roque:</strong> 14-16 de agosto</p>
-            </div>
-            <div class="mes">
-                <h3>Septiembre</h3>
-                <p>No hay eventos programados</p>
-            </div>
-            <div class="mes">
-                <h3>Noviembre</h3>
-                <p><strong>Festival del Café:</strong> 10-12 de noviembre</p>
-            </div>
-            <div class="mes">
-                <h3>Marzo/Abril</h3>
-                <p><strong>Semana Santa:</strong> 24-31 de marzo</p>
-            </div>
-        </div>
-    </section>
+    <section>
     <section class="info-adicional">
         <h2>Más sobre Guavatá</h2>
         <p>
@@ -112,7 +92,7 @@
         <h2>Conoce Guavatá en Video</h2>
         <div class="video-container">
             <video controls>
-                <source src="video-guavata.mp4" type="video/mp4">
+                <source src="{{ url_for('static', filename='GUAVATA.mp4') }}" type="video/mp4">
                 Tu navegador no soporta el elemento de video.
             </video>
         </div>
