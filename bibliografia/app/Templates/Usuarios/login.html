@@ -3,105 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
+    <title>Iniciar Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+            color: #4a4a4a;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
 
         form {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .input-group {
+            position: relative;
         }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        input[type="email"],
-        input[type="password"] {
+        .input-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
 
-        input:focus {
-            border-color: #5cb85c;
+        .input-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
             outline: none;
         }
 
+        .input-group label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            padding: 0 5px;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 12px;
+            color: #667eea;
+        }
+
         button {
-            width: 100%;
-            padding: 12px;
-            background-color: #5cb85c;
+            background: linear-gradient(to right, #667eea, #764ba2);
             color: white;
             border: none;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            background-color: #4cae4c;
+            background: linear-gradient(to right, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            color: #007bff;
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
             text-decoration: none;
+            font-weight: 600;
         }
 
-        a:hover {
+        .footer a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <form action="{{ url_for('usuario.login') }}" method="post"> 
-        <div class="form-group">
-            <label for="user1">Username</label>
-            <input type="email" id="correo" name="correo" placeholder="Correo" required>
+    <div class="container">
+        <h1>Iniciar Sesión</h1>
+        <form action="{{ url_for('usuario.login') }}" method="post">
+            <div class="input-group">
+                <input type="email" id="correo" name="correo" placeholder=" " required>
+                <label for="correo">Correo electrónico</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="contraseña" name="contraseña" placeholder=" " required>
+                <label for="contraseña">Contraseña</label>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+        <div class="footer">
+            ¿No tienes una cuenta? <a href="{{ url_for('usuario.registro') }}">Registrarse</a><br>
+            <a href="{{ url_for('usuario.recuperar') }}">Recuperar Contraseña</a>
         </div>
-
-        <div  class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
-        </div>
-       
-        <button type="submit">Iniciar sesión</button>
-        <a href="{{ url_for('usuario.registro') }}">Registro</a><br>
-        <a href="{{url_for('usuario.recuperar')}}">Recuperar Contraseña</a>
-    </form>
+    </div>
 </body>
 </html>

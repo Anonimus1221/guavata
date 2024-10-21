@@ -118,7 +118,13 @@
         </div>
     </section>
     <footer>
-        <p>&copy; Bienvenidos a Guavatá | Todos los derechos reservados.</p>
+        <div class="footer-content">
+            <p>&copy; Bienvenidos a Guavatá | Todos los derechos reservados.</p>
+        <div>
+            <a href="https://wa.me/573XXXXXXXXX" target="_blank" class="whatsapp-icon">
+                <img src="{{ url_for('static', filename='whats.png') }}" alt="WhatsApp" width="40" height="40">
+            </a>
+        </div>
     </footer>
 
     <!-- Script JS -->
@@ -128,6 +134,37 @@
         }
     </script>
     <style>
+        .whatsapp-icon {
+            margin-left: 15px;
+            animation: bounce 1s infinite;
+        }
+        
+        .whatsapp-icon img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .whatsapp-icon {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+        
+            .whatsapp-icon img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;

@@ -4,77 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        .form-input {
-            transition: all 0.3s ease-in-out;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .form-input:focus {
-            transform: scale(1.05);
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
-        .profile-pic {
-            transition: all 0.3s ease-in-out;
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
-        .profile-pic:hover {
-            transform: rotate(5deg) scale(1.1);
+
+        h1 {
+            color: #4a4a4a;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+            outline: none;
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            padding: 0 5px;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 12px;
+            color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        #mensaje {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .mensaje-exito {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .mensaje-error {
+            background-color: #f8d7da;
+            color: #721c24;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md animate__animated animate__fadeIn">
-        <h2 class="text-3xl font-bold mb-6 text-center text-indigo-600">Editar Perfil</h2>
-        
-        <form action="/actualizar-perfil" method="POST" enctype="multipart/form-data" class="space-y-4">
-            <div class="text-center mb-6">
-                <img id="preview" src="{{ user.profile_pic or '/static/default-avatar.png' }}" alt="" class="w-32 h-32 rounded-full mx-auto mb-4 profile-pic">
-                <label for="profile_pic" class="cursor-pointer bg-indigo-500 text-white py-2 px-4 rounded-full hover:bg-indigo-600 transition duration-300">
-                    Cambiar foto
-                </label>
-                <input type="file" id="profile_pic" name="profile_pic" accept="image/*" class="hidden" onchange="previewImage(event)">
+<body>
+    <div class="container">
+        <h1>Editar Perfil</h1>
+        <form id="editarPerfilForm" action="{{ url_for('usuario.editar_perfil') }}" method="post">
+            <div class="input-group">
+                <input type="text" id="nombre" name="nombre" placeholder=" " value="{{ usuario.nombre }}" required>
+                <label for="nombre">Nombre</label>
             </div>
-
-            <div>
-                <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value="" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <div class="input-group">
+                <input type="text" id="apellido" name="apellido" placeholder=" " value="{{ usuario.apellido }}" required>
+                <label for="apellido">Apellido</label>
             </div>
-
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" value="" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <div class="input-group">
+                <input type="email" id="correo" name="correo" placeholder=" " value="{{ usuario.correo }}" required>
+                <label for="correo">Correo electrónico</label>
             </div>
-
-            <div>
-                <label for="bio" class="block text-sm font-medium text-gray-700">Biografía</label>
-                <textarea id="bio" name="bio" rows="3" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+            <div class="input-group">
+                <input type="password" id="contrasena" name="contrasena" placeholder=" ">
+                <label for="contrasena">Nueva contraseña (dejar en blanco para no cambiar)</label>
             </div>
-
-            <div>
-                <button type="submit" class="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300 transform hover:scale-105">
-                    Guardar Cambios
-                </button>
-            </div>
+            <button type="submit">Guardar cambios</button>
         </form>
+        
+        <div id="mensaje"></div>
+
+        <div class="footer">
+            <a href="{{ url_for('usuario.perfil') }}">Volver al perfil</a>
+        </div>
     </div>
 
     <script>
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const preview = document.getElementById('preview');
-                preview.src = reader.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
+        const editarPerfilForm = document.getElementById('editarPerfilForm');
+        const mensajeDiv = document.getElementById('mensaje');
 
-        // Animación de entrada para los campos del formulario
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const formInputs = document.querySelectorAll('.form-input');
-            formInputs.forEach((input, index) => {
-                input.classList.add('animate__animated', 'animate__fadeInUp');
-                input.style.animationDelay = `${index * 0.1}s`;
+        editarPerfilForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('{{ url_for("usuario.editar_perfil") }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    mostrarMensaje('Perfil actualizado exitosamente.', 'exito');
+                } else {
+                    mostrarMensaje('Hubo un error al actualizar el perfil. Por favor, intenta de nuevo.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mostrarMensaje('Hubo un error al procesar tu solicitud. Por favor, intenta de nuevo.', 'error');
             });
         });
+
+        function mostrarMensaje(mensaje, tipo) {
+            mensajeDiv.innerHTML = mensaje;
+            mensajeDiv.className = tipo === 'exito' ? 'mensaje-exito' : 'mensaje-error';
+        }
     </script>
 </body>
 </html>
