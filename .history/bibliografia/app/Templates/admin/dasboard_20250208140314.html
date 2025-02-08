@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Administrador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/super/1.0.0/super.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background-color: #333;
+            color: #fff;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Inicio</a>
+        <a href="#">Usuarios</a>
+        <a href="#">Configuración</a>
+        <a href="#">Cerrar Sesión</a>
+    </div>
+
+    <div class="sidebar">
+        <a href="#">Panel de Control</a>
+        <a href="#">Gestión de Usuarios</a>
+        <a href="#">Reportes</a>
+        <a href="#">Configuración</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Bienvenido, Administrador</h1>
+        <p>Este es tu panel de control. Desde aquí puedes gestionar usuarios, ver reportes y configurar el sistema.</p>
+        <!-- Aquí puedes agregar más contenido según tus necesidades -->
+    </div>
+</body>
+</html>
